@@ -16,7 +16,25 @@ namespace RestApiTest
 
         {
             //for (; ; )
-                getdata();
+            Answer();
+        }
+
+        public static void Answer()
+        {
+
+            var client = new RestClient("http://localhost:1026/");
+            var request = new RestRequest("v2/entities/Robot1/attrs/writeOrderstatus?type=Order", Method.Put);
+            request.AddHeader("fiware-service", "robot_info");
+            request.AddHeader("fiware-servicepath", "/demo");
+            request.AddHeader("Content-Type", "application/json");
+            var body = @"{ ""value"": [""robotVersionNummer"",""test"",""test2"",""test3"",""test4"",""test5""],
+" + "\n" +
+            @"   ""type"": ""command""
+" + "\n" +
+            @"}";
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
+            RestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
         }
 
         public static void getdata()
